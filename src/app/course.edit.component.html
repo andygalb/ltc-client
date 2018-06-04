@@ -1,0 +1,64 @@
+<div class="row">
+  <a *ngIf="selectedCourse" [routerLink]="['/teacher/course/edit/'+this.courseSequenceQuestionService.currentCourse._id]">Course:{{this.courseSequenceQuestionService.currentCourse.courseTitle}}</a>
+</div>
+<div class="row">
+  <div class="col-3">
+   <h3>Course</h3>
+    <form>
+      <div class="form-group">
+        <label for="title">Title:</label>
+      <input  *ngIf="selectedCourse" type="text" class="form-control" id="course-title" required name="title" [(ngModel)]="selectedCourse.courseTitle">
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+      <textarea  *ngIf="selectedCourse"type="text" class="form-control" id="course-description" required name="description" [(ngModel)]="selectedCourse.courseDescription"></textarea>
+      </div>
+      <button  class="btn btn-primary" (click)="saveChanges();return;">Save Changes</button>
+    </form>
+  </div>
+
+  <div class="col-9">
+    <h3>Sequences</h3>
+    <table class="table">
+      <thead class="thead-inverse">
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Creation Date</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let sequence of sequencesToShow">
+        <td>{{sequence.sequenceTitle}}</td>
+        <td>{{sequence.sequenceDescription}}</td>
+        <td>{{sequence.created}}</td>
+        <td> <md-icon [routerLink]="['/teacher/sequence/edit', sequence._id]">edit</md-icon></td>
+        <td> <md-icon (click)="onDelete(sequence);return;">delete</md-icon></td>
+      </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-success"  (click)="createNewSequence();return;">+Add new sequence</button>
+
+    <div *ngIf="newSequence">
+    <h2>Add new sequence</h2>
+    <form [formGroup]="sequenceForm">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" id="title" required name="title" formControlName="title" [(ngModel)]="newSequence.sequenceTitle">
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea formControlName="description" name="description" class="form-control" id="description" rows="3" [(ngModel)]="newSequence.sequenceDescription"></textarea>
+      </div>
+      <button type="submit" class="btn btn-success"  (click)="submitNewSequence();return;">Create</button>
+    </form>
+
+
+  </div>
+  </div>
+
+
+
+

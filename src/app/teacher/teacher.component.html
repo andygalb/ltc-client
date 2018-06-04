@@ -1,0 +1,79 @@
+<div class="row">
+
+  <div class="col-3">
+    <h3 *ngIf="userService.isUserLoggedIn">Welcome {{userService.user.local.firstName}}</h3>
+    <p>To the right you can see the courses you have created so far.</p>
+    <button class="btn btn-success"  (click)="createNewCourse();return;" >+Add new course</button>
+
+
+    <div *ngIf="selectedcourse">
+      <h2>Edit course</h2>
+      <form>
+        <div class="form-group">
+          <label for="courseTitle">Title:</label>
+          <input id="courseTitle"  name="courseTitle" [(ngModel)]="selectedcourse.courseTitle"/>
+        </div>
+        <div class="form-group">
+          <label for="courseText">course:</label>
+          <textarea class="form-control" id="courseText" rows="3" name="courseText" [(ngModel)]="selectedcourse.courseText"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="answer">Answer:</label>
+          <textarea class="form-control" id="answer" rows="3" name="answer" [(ngModel)]="selectedcourse.courseAnswer"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+
+</div>
+  <div class="col-9">
+  <h3>Courses</h3>
+    <table class="table">
+      <thead class="thead-inverse">
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Creation Date</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let course of courses">
+        <td>{{course.courseTitle}}</td>
+        <td>{{course.courseDescription}}</td>
+        <td>{{course.created_at}}</td>
+        <td> <md-icon [routerLink]="['/teacher/course/edit', course._id]">edit</md-icon></td>
+        <td> <md-icon (click)="onDelete(sequence);return;">delete</md-icon></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="newCourse">
+      <h2>Add new course</h2>
+      <form [formGroup]="courseForm">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" class="form-control" id="title" required name="title" formControlName="title" [(ngModel)]="newCourse.courseTitle">
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea formControlName="description" name="description" class="form-control" id="description" rows="3" [(ngModel)]="newCourse.courseDescription"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success"  (click)="submitNewCourse();return;">Create</button>
+      </form>
+
+
+    </div>
+<!--
+    <div *ngFor="let course of courses"  class="card" >
+      <div class="card-header">course</div>
+      <div class="card-block">
+        <h4 class="card-title">{{course.courseTitle}}</h4>
+        <p class="card-text">{{course.courseDescription}}</p>
+        <button  [routerLink]="['/teacher/course/edit', course._id]" class="btn btn-primary" >Edit</button>
+        <button  class="btn btn-danger" (click)="onDelete(course);return;">Delete</button>
+      </div>
+    </div>
+    -->
+  </div>

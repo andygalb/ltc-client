@@ -1,0 +1,28 @@
+<div class="row">
+  <a *ngIf="this.courseSequenceQuestionService.currentCourse" [routerLink]="['/teacher/course/edit/'+this.courseSequenceQuestionService.currentCourse._id]">Course:{{this.courseSequenceQuestionService.currentCourse.courseTitle}}</a> >
+  <a *ngIf="this.courseSequenceQuestionService.currentSequence" [routerLink]="['/teacher/sequence/edit/'+this.courseSequenceQuestionService.currentSequence._id]">Sequence:{{this.courseSequenceQuestionService.currentSequence.sequenceTitle}}</a> >
+  <a *ngIf="this.courseSequenceQuestionService.currentQuestion" [routerLink]="['/teacher/question/edit/'+this.courseSequenceQuestionService.currentQuestion._id]">Question:{{this.courseSequenceQuestionService.currentQuestion.questionTitle}}</a>
+</div>
+<div class="row">
+  <div class="col-lg-9">
+    <h2>Question</h2>
+    <form>
+      <div class="form-group">
+        <label for="question-title">Title:</label>
+        <input  *ngIf="selectedQuestion"type="text" class="form-control" id="question-title" required name="title" [(ngModel)]="selectedQuestion.questionTitle">
+      </div>
+      <div class="form-group">
+        <label for="question-text">Text:</label>
+        <textarea  *ngIf="selectedQuestion"type="text" class="form-control" id="question-text" required name="text" [(ngModel)]="selectedQuestion.questionText"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="question-text">Answer:</label>
+        <textarea  *ngIf="selectedQuestion"type="text" class="form-control" id="question-answer" required name="answer" [(ngModel)]="selectedQuestion.questionAnswer.text"></textarea>
+      </div>
+      <button  class="btn btn-primary" (click)="saveChanges();return;">Save Changes</button>
+    </form>
+    <div *ngIf="selectedQuestion">
+  </div>
+
+
+

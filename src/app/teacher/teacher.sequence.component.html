@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-6">
+    <div *ngFor="let question of questions"  class="card" >
+      <div class="card-header">Question</div>
+      <div class="card-block">
+        <h4 class="card-title">{{question.questionTitle}}</h4>
+        <p class="card-text">{{question.questionText}}</p>
+        <button  class="btn btn-primary" (click)="onSelect(question);return;" [class.selected]="question === selectedQuestion">Edit</button>
+     <!--   <button  class="btn btn-danger" (click)="deleteQuestion(question);return;">Delete</button>-->
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+  <!--  <button class="btn btn-success"  (click)="createNewQuestion();return;" >+Add new question</button>-->
+    <div *ngIf="newQuestion">
+      <h2>Add new question</h2>
+      <form [formGroup]="questionForm">
+        <div class="form-group">
+          {{newQuestion.questionText}}
+        </div>
+        <div class="form-group">
+          <label for="answer">Answer:</label>
+          <textarea formControlName="answer" class="form-control" id="answer" rows="3">{{newQuestion.questionAnswer}}</textarea>
+        </div>
+      </form>
+
+
+  </div>
+
+    <div *ngIf="selectedQuestion">
+      <h2>Edit question</h2>
+      <form>
+        <div class="form-group">
+          <label for="questionTitle">Title:</label>
+          <input id="questionTitle"  name="questionTitle" [(ngModel)]="selectedQuestion.questionTitle"/>
+        </div>
+        <div class="form-group">
+          <label for="questionText">Question:</label>
+          <textarea class="form-control" id="questionText" rows="3" name="questionText" [(ngModel)]="selectedQuestion.questionText"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="answer">Answer:</label>
+          <textarea class="form-control" id="answer" rows="3" name="answer" [(ngModel)]="selectedQuestion.questionAnswer"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+
+</div>

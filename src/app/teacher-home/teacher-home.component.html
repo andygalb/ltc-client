@@ -1,0 +1,23 @@
+<h1>Teacher</h1>
+
+<div class="row">
+  <div class="col-lg-9">
+    <h3>Welcome {{user.firstName}}.</h3>
+    <p> To the right you can see the courses which you have created. To choose one, please click on "view" or click on "Create New Course"
+    to add a new course.</p>
+
+    </div>
+  <div class="col-lg-3">
+    <h2>Courses</h2>
+    <div *ngFor="let course of courses"  class="card" >
+      <div class="card-header">Course</div>
+      <div class="card-block">
+        <h4 class="card-title">{{course.courseTitle}}</h4>
+        <button  [routerLink]="['/student/course', course.id]" class="btn btn-primary"  [class.selected]="course === selectedCourse">View</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

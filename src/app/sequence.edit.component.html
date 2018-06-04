@@ -1,0 +1,73 @@
+<div class="row">
+  <a *ngIf="this.courseSequenceQuestionService.currentCourse" [routerLink]="['/teacher/course/edit/'+this.courseSequenceQuestionService.currentCourse._id]">Course:{{this.courseSequenceQuestionService.currentCourse.courseTitle}}</a> >
+  <a *ngIf="selectedSequence" [routerLink]="['/teacher/sequence/edit/'+this.courseSequenceQuestionService.currentSequence._id]">Sequence:{{this.courseSequenceQuestionService.currentSequence.sequenceTitle}}</a>
+
+</div>
+<div class="row">
+  <div class="col-3">
+    <h3>Sequence</h3>
+    <form>
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input  *ngIf="selectedSequence"type="text" class="form-control" id="sequence-title" required name="title" [(ngModel)]="selectedSequence.sequenceTitle">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea  *ngIf="selectedSequence"type="text" class="form-control" id="sequence-description" required name="description" [(ngModel)]="selectedSequence.sequenceDescription"></textarea>
+    </div>
+    <button  class="btn btn-primary" (click)="saveChanges();return;">Save Changes</button>
+  </form>
+
+
+  </div>
+
+  <div class="col-9">
+  <h3>Questions</h3>
+    <table class="table">
+      <thead class="thead-inverse">
+      <tr>
+        <th>Title</th>
+        <th>Question Text</th>
+        <th>Creation Date</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let question of questionsToShow">
+        <td>{{question.questionTitle}}</td>
+        <td>{{question.questionText}}</td>
+        <td>{{question.created_at}}</td>
+        <td> <md-icon [routerLink]="['/teacher/question/edit', question._id]">edit</md-icon></td>
+        <td> <md-icon (click)="deleteQuestion(question);return;">delete</md-icon></td>
+      </tr>
+      </tbody>
+    </table>
+
+
+    <button class="btn btn-success"  (click)="createNewQuestion();return;"  >+Add new question</button>
+    <div *ngIf="newQuestion">
+      <h2>Add new question</h2>
+      <form [formGroup]="questionForm">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" class="form-control" id="title" required name="title" formControlName="title" [(ngModel)]="newQuestion.questionTitle">
+        </div>
+        <div class="form-group">
+          <label for="questionText">Question Text:</label>
+          <textarea formControlName="questionText" name="questionText" class="form-control" id="questionText" rows="3" [(ngModel)]="newQuestion.questionText"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="questionAnswer">Answer:</label>
+          <textarea formControlName="questionAnswer" name="questionAnswer" class="form-control" id="questionAnswer" rows="3" [(ngModel)]="newQuestion.questionAnswer.text"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success" (click)="submitNewQuestion();return;">Create</button>
+      </form>
+
+
+    </div>
+
+
+
+
+

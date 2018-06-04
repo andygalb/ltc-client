@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-lg-9">
+    <div *ngIf="selectedQuestion">
+      <h2>{{selectedQuestion.questionTitle}}</h2>
+
+      <div *ngIf="alreadyCorrect; then alreadyCorrectContent else notAlreadyCorrectContent"></div>
+    </div>
+      <ng-template #alreadyCorrectContent><p>Answer: {{selectedQuestion.questionAnswer.text}}</p></ng-template>
+
+
+    <ng-template #notAlreadyCorrectContent>
+      <form [formGroup]="questionForm" (ngSubmit)="submitAnswer($event)">
+      <div class="form-group">
+        {{selectedQuestion.questionText}}
+      </div>
+      <div class="form-group">
+        <label for="exampleTextarea">Your answer:</label>
+        <textarea formControlName="answer" class="form-control" id="answer" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </ng-template>
+
+    <div *ngIf="feedback">
+      <p>{{feedback}}</p>
+      <button (click)="backToSequence(); return;" class="btn btn-primary">Back to sequence</button>
+   <!--   <button (click)="nextQuestion(); return;" class="btn btn-primary">Next question</button>-->
+    </div>
+  </div>
+
+
+
